@@ -74,7 +74,6 @@ const signin = async (req, res) => {
     }
 };
 
-
 const updateinfoid = async (req, res) => {
     try {
         const { id } = req.params; // Extract the user ID from the request parameters
