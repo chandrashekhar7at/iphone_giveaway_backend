@@ -103,8 +103,9 @@ const logout = async (req, res) => {
     try {
         res.cookie('sessionid', '', { 
             httpOnly: true, 
-            secure: process.env.NODE_ENV === 'production', 
-            maxAge: 0 
+            secure: process.env.NODE_ENV === 'production', // true if in production, false otherwise
+            sameSite: process.env.NODE_ENV === 'production' ? 'None' : 'Lax',
+            maxAge: 0
         });
         return res.status(200).json({ status: true, message: "Logged out successfully" });
     } catch (error) {
