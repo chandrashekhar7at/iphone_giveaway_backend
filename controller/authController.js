@@ -31,16 +31,14 @@ const signup = async (req, res) => {
                 maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days in milliseconds
             });
             
-            return res.status(201).json({ status: true, message: "User created and signed in successfully", data: { phone: result.phone, _id: result._id } });
+            return res.status(200).json({ status: true, message: "User created and signed in successfully", data: { phone: result.phone, _id: result._id } });
         } else {
-            return res.status(500).json({ status: false, message: "User creation failed" });
+            return res.status(201).json({ status: false, message: "User creation failed" });
         }
     } catch (error) {
-        return res.status(500).json({ status: false, message: "Server error", error: error.message });
+        return res.status(201).json({ status: false, message: "Server error", error: error.message });
     }
 };
-
-
 
 
 const signin = async (req, res) => {
@@ -54,7 +52,7 @@ const signin = async (req, res) => {
 
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({ status: false, message: "Invalid phone number or password" });
+            return res.status(201).json({ status: false, message: "Invalid phone number or password" });
         }
 
         const token = jwt.sign({ id: user._id, phone: user.phone }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRATION });
@@ -119,7 +117,7 @@ const saveuserinfo = async (req, res) => {
 
         // Validate required fields
         if (!id || !fullname || !instaId) {
-            return res.status(400).json({ status: false, message: 'ID, fullname, and Instagram ID are required' });
+            return res.status(201).json({ status: false, message: 'ID, fullname, and Instagram ID are required' });
         }
 
         // Find existing user by ID
@@ -165,7 +163,7 @@ const saveuserinfo = async (req, res) => {
 
             // Save the new user
             await newUser.save();
-            return res.status(201).json({ status: true, message: 'User created successfully', user: newUser });
+            return res.status(200).json({ status: true, message: 'User created successfully', user: newUser });
         }
     } catch (error) {
         res.status(500).json({ status: false, message: 'Server error', error: error.message });
@@ -194,7 +192,7 @@ const getUtrValuesById = async (req, res) => {
         const { id } = req.params;
 
         if (!id) {
-            return res.status(400).json({ status: false, message: 'User ID is required' });
+            return res.status(201).json({ status: false, message: 'User ID is required' });
         }
 
         const user = await userinfomodel.findById(id, 'utr');
