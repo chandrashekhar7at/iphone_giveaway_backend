@@ -1,11 +1,6 @@
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema({
-  userid: {
-    type: String,
-    required: true,
-    unique: true
-  },
   fullname: {
     type: String,
     required: true,
@@ -21,9 +16,18 @@ const userSchema = new mongoose.Schema({
     trim: true,
     default: 'abc@gmail.com'
   },
-  utr: {
-    type: [String],
-    default: []
+  phone: {
+    type: String,
+    trim: true,
+    default: '0'
+  },
+  winner:{
+    type:Boolean,
+    default:false
+  },
+  boxno:{
+    type:String,
+    required:true
   }
 }, { timestamps: true });
 

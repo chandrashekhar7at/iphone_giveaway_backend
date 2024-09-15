@@ -1,5 +1,5 @@
 import express from "express"
-import { getAllUtrValues, getUtrValuesById, logout, saveuserinfo, signin, signup, updateinfoid } from "../controller/authController.js"
+import { fetchAllusers, fetchuserbyid, fetchuserdetails, logout, saveuserinfo, signin, signup } from "../controller/authController.js"
 import authenticate from "../middleware/checkAuth.js"
 import jwt from 'jsonwebtoken'
 
@@ -35,9 +35,9 @@ router.post('/logout',authenticate,logout)
 
 // save user info boxes
 
-router.post('/saveuserinfo/:id',saveuserinfo)
-router.post('/getAllUtrValues',getAllUtrValues)
-router.post('/getUtrValuesbyid/:id',getUtrValuesById)
-router.post('/updateinfoid/:id',updateinfoid)
+router.post('/fetchAllusers',fetchAllusers)
+router.post('/fetchuserbyid/:userid',fetchuserbyid)
+router.post('/saveuserinfo',saveuserinfo)
+router.post('/fetchuserdetails',fetchuserdetails)
 
 export default router

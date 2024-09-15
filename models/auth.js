@@ -1,22 +1,32 @@
 import mongoose from "mongoose";
 
-const userSchema = new mongoose.Schema({
-    phone:{
-        type:String,
-        required:true,
-        unique:true
+const userInfoIdSchema = new mongoose.Schema({
+    boxno: {
+        type: String,
+        required: true
     },
-    password:{
-        type:String,
-        required:true,
-    },
-    userinfoid:{
-        type:String,
-        trim:true,
-        default:null
+    detailsinfoid: {
+        type: String,
+        required: true
     }
-},{timestamps:true})
+}, { _id: false }); // _id: false prevents Mongoose from creating an _id for each subdocument
 
-const usermodel = mongoose.model('user',userSchema)
+const userSchema = new mongoose.Schema({
+    phone: {
+        type: String,
+        required: true,
+        unique: true
+    },
+    password: {
+        type: String,
+        required: true,
+    },
+    userinfoids: {
+        type: [userInfoIdSchema], // Array of pairs (boxno, detailsinfoid)
+        default: []
+    }
+}, { timestamps: true });
 
-export default usermodel
+const usermodel = mongoose.model('user', userSchema);
+
+export default usermodel;
