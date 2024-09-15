@@ -11,7 +11,7 @@ connectDB()
 const app = express()
 const port =  process.env.PORT || 8080 
 app.use(cors({
-    origin:['https://iphone-giveaway.vercel.app'],
+    origin:['http://localhost:8080'],
     credentials:true
 }))
 app.set("trust proxy",1);
