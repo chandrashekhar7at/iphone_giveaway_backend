@@ -111,7 +111,7 @@ const saveuserinfo = async (req, res) => {
         // Check if the user exists
         const user = await usermodel.findById(userid);
         if (!user) {
-            return res.status(404).json({ status: false, message: "User not found" });
+            return res.status(201).json({ status: false, message: "User not found" });
         }
 
         // Create a new user info document
@@ -150,7 +150,7 @@ const fetchAllusers = async(req,res)=>{
         const fetcheddata = await usermodel.find({}).select('userinfoids')
         const Alldata = fetcheddata
         if(!fetcheddata){
-            return res.status(404).json({status:false,message:"can not fetch data"})
+            return res.status(201).json({status:false,message:"can not fetch data"})
         }
         return res.status(201).json({status:true,message:"All data fetched",Alldata})
     } catch (error) {
