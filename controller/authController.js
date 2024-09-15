@@ -105,6 +105,7 @@ const logout = async (req, res) => {
 
 
 const saveuserinfo = async (req, res) => {
+    console.log('working')
     try {
         const { userid, fullname, instaid, email, phone, boxno } = req.body;
 
